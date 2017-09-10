@@ -1,0 +1,30 @@
+{
+  "name": "noajax",
+  "version": "0.0.1",
+  "description": "A PHP + JS library to call server side PHP functions directly from browser.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive|| true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linways/php-noajax.git"
+  },
+  "author": "Rohith Bhaskaran <rohith@linways.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/linways/php-noajax/issues"
+  },
+  "homepage": "https://github.com/linways/php-noajax#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-uglify": "^3.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "mocha": "^3.5.0",
+    "grunt": "^1.0.1"
+  },
+  "dependencies": {
+  }
+}
