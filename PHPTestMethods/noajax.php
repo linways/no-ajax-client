@@ -1,6 +1,6 @@
 <?php
-header("Access-Control-Allow-Origin: *");
 
+header("Access-Control-Allow-Origin: *");
 
 // For require all the php files inside a folder
 foreach (glob("methods/*.php") as $filename)
@@ -11,4 +11,12 @@ foreach (glob("methods/*.php") as $filename)
 
 $params = json_decode($_POST['params'],true);
 
-call_user_func($params['methodName'], array(&$params['args']));
+$response = call_user_func($params['methodName'], array(&$params['args']));
+
+if(isset($response)){
+    echo $response;    
+}
+else{
+    http_response_code(204);
+    echo true;
+}

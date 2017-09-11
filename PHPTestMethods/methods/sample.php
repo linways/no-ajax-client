@@ -1,7 +1,7 @@
 <?php
 
 function testMethod1(){
-    echo 'success';
+    return 'success';
 }
 
 function testMethod2(){

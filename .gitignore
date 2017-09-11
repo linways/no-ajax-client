@@ -60,3 +60,5 @@ typings/
 
 composer.phar
 vendor/
+
+.vscode

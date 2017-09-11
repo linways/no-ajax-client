@@ -28,10 +28,14 @@ noajax = {
     var xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-        //   console.log(this.responseText);
-          callback(null, this.responseText);
-        //   return this.responseText;
+        if (this.readyState == 4 ) {
+          var response;
+          if(this.status == 200)
+            response = this.responseText;
+          else if(this.status == 204)
+            response = true;
+            
+          callback(null, response);
         }
       };
 
