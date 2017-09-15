@@ -1,5 +1,5 @@
 {
-  "name": "noajax",
+  "name": "noAjaxClient",
   "version": "0.0.1",
   "description": "A PHP + JS library to call server side PHP functions directly from browser.",
   "main": "index.js",
@@ -19,7 +19,6 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "grunt-cli": "^1.2.0",
-    "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-uglify": "^3.0.1",
     "grunt-contrib-watch": "^1.0.0",
     "mocha": "^3.5.0",
