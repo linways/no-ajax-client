@@ -1,31 +1,40 @@
 <?php
 error_reporting(0);
-header("Access-Control-Allow-Origin: *");
+header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
 
-class NoMethodFound extends Exception{
+class MethodNotFoundException extends Exception{
+    public function __construct($message, $code = 0, Exception $previous = null) {
+        parent::__construct($message, $code, $previous);
+    }
+}
+class ClassNotFoundException extends Exception{
     public function __construct($message, $code = 0, Exception $previous = null) {
         parent::__construct($message, $code, $previous);
     }
 }
 
 // For require all the php files inside a folder
-foreach (glob("methods/*.php") as $filename)
+foreach (glob('methods/*.php') as $filename)
 {
     require_once $filename;
 }
 
 $params = json_decode($_POST['params'],true);
 
+list($className, $methodName) = explode('::', $params['methodName']);
+
 $response = new stdClass();
 
 try{
-    if(!function_exists($params['methodName']))
-        throw new NoMethodFound('3 arguments are required'); 
+    if(!class_exists($className))
+        throw new ClassNotFoundException("class '$className' not found");
+    if(!method_exists($className, $methodName))
+        throw new MethodNotFoundException("class '$className' does not have a method '$methodNamess'"); 
     $result = call_user_func_array($params['methodName'], $params['args']);
 
-    $response->status = "success";    
+    $response->status = 'success';    
     if(isset($result)){
         $response->code = 200; // HTTP status code for OK
         $response->result = $result;    
@@ -35,7 +44,7 @@ try{
         $response->result = true;
     }
 }catch(Exception $e){
-    $response->status = "failed";
+    $response->status = 'failed';
     $exception = new stdClass();
     $exception->name = get_class($e);
     $exception->code = $e->getCode();

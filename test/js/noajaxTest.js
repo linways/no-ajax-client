@@ -4,7 +4,8 @@ describe('NoAjax', function(){
         noajax.init();
     });
     it('Should return result for function without any argument', function(done){
-        noajax.call("returnSuccess", function(err,res){
+        noajax.call("NoAjaxClass::returnSuccess", function(err,res){
+            console.log(err);
             try{
                 assert.equal(res, 'success');
                 done();
@@ -46,7 +47,7 @@ describe('NoAjax', function(){
     it('Should return ArgumentMismatch exception if 2 arguments are required and only one is given',function(done){
         noajax.call("add3Numbers", 1, 2, function(err, res){
             try{
-                assert.equal(err.name, 'ArgumentMismatch');
+                assert.equal(err.name, 'ArgumentMismatchException');
                 done();
             }catch(e){
                 done(e);
@@ -56,7 +57,7 @@ describe('NoAjax', function(){
     it('Should return NoMethodFound Exception if server method is not found',function(done){
         noajax.call("nonExistingFunction", function(err,res){
             try{
-                assert.equal(err.name, 'NoMethodFound');
+                assert.equal(err.name, 'NoMethodFoundException');
                 done();
             }catch(e){
                 done(e);
