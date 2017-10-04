@@ -1,12 +1,18 @@
 var s,
 noajax = {
 
-  settings: {
-    phpEndPoint: 'http://localhost:8000/noajax.php'
+  defaultSettings: {
+    serverNamespace: ''
   },
 
-  init: function(){
-      s = this.settings;
+  init: function(settings){
+    s = {};
+    if(!settings.serverEndpoint){
+      console.error("serverEndpoint must be provided");
+      throw new Error("`serverEndpoint` must be provided");
+    }
+    s.serverEndpoint = settings.serverEndpoint;
+    s.serverNamespace = settings.serverNamespace? settings.serverNamespace : this.defaultSettings.serverNamespace;
   },
 
   call: function( ){
@@ -15,7 +21,7 @@ noajax = {
     }
     if(typeof(arguments[0])!== "string")
         throw new noAjaxException("First parameter should be the name of the method");
-    var methodName = arguments[0];
+    var methodName = s.serverNamespace + arguments[0];
     callback = arguments[arguments.length-1];
     var otherArgs = Array.prototype.slice.call(arguments);
     otherArgs.shift(); // To remove method name from the array
@@ -24,7 +30,6 @@ noajax = {
         methodName: methodName,
         args: otherArgs
     }
-
     var xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function() {
@@ -39,7 +44,7 @@ noajax = {
         }
       };
 
-    xhttp.open("POST", s.phpEndPoint, true);
+    xhttp.open("POST", s.serverEndpoint, true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("params="+JSON.stringify(args));
   }
